@@ -1,18 +1,16 @@
 // services/userService.js
 import bcrypt from "bcrypt";
 import UserModel from "../Models/UserModel.js";
+import jwt from "../Utils/jwt.js";
 
-// 회원가입 서비스
 const registerUser = async (user) => {
   // 비밀번호 해싱
   const hashedPassword = await bcrypt.hash(user.password, 10);
   user.password = hashedPassword;
 
-  // 새로운 유저 생성
   return await UserModel.createUser(user);
 };
 
-// 로그인 서비스
 const loginUser = async (email, password) => {
   const user = await UserModel.getUserByEmail(email);
   if (!user) {
@@ -25,7 +23,10 @@ const loginUser = async (email, password) => {
     throw new Error("Invalid password");
   }
 
-  return user;
+  const accessToken = jwt.createAccessToken(user.id);
+  const refreshToken = jwt.createRefreshToken(user.id);
+
+  return { accessToken, refreshToken };
 };
 
 export default { registerUser, loginUser };
