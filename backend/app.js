@@ -1,22 +1,28 @@
+// app.js (또는 index.js)
 import express from "express";
-import { swaggerUi, swaggerDocs } from "./swagger/swaggerConfig.js";
+import { connectDB } from "./db/connectDB.js";
 import UserRouter from "./routes/UserRouter.js";
+import ProductRouter from "./routes/ProductRouter.js";
+import OrderRouter from "./routes/OrderRouter.js";
+import CartRouter from "./routes/CartRouter.js";
+import { postRefreshToken } from "./Controllers/UserController.js";
 
 const app = express();
 const PORT = 7777;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // 이 부분을 추가해줘야 req.body에 접근 가능
 
-// Swagger 설정
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+connectDB();
 
 // 라우터 설정
-app.use("/api/users", UserRouter);
+app.use("/user", UserRouter);
+app.use("/products", ProductRouter);
+app.use("/orders", OrderRouter);
+app.use("/cart", CartRouter);
 
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+app.use("/refresh-token", postRefreshToken);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`🍿Server is running on port http://localhost:${PORT}`);
 });
