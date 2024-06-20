@@ -1,25 +1,22 @@
 // routes/users.js
 import express from "express";
+import {
+  getProducts,
+  getProduct,
+  postProduct,
+  putProduct,
+  deleteProduct,
+} from "../Controllers/ProductController.js";
+import uploadImages from "../middleware/upload.js";
 
 const ProductRouter = express.Router();
-// 상품 전체 조회
-/**
- * @swagger
- * /api/products:
- *  post:
- *     summary: 상품 전체 조회
- *     tags: [Products]
- *     responses:
- *       201:
- *         description: User created successfully
- *       400:
- *         description: Invalid input
- */
 
-//상품 상세 조회
-/**
- * @swagger
- * /api/products/:id:
- */
+ProductRouter.use(uploadImages);
+ProductRouter.route("/").get(getProducts);
+ProductRouter.route("/upload").post(postProduct);
+ProductRouter.route("/:id")
+  .post(postProduct)
+  .put(putProduct)
+  .delete(deleteProduct);
 
 export default ProductRouter;
