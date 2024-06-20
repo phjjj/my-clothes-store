@@ -1,4 +1,6 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 const tokenSecret = process.env.JWT_SECRET;
 const accessTokenExpiry = "15m";
@@ -6,12 +8,18 @@ const refreshTokenExpiry = "7d";
 
 // 액세스 토큰 생성
 export const createAccessToken = (userId) => {
-  return jwt.sign(userId, tokenSecret, accessTokenExpiry);
+  return jwt.sign({ uid: userId }, tokenSecret, {
+    expiresIn: accessTokenExpiry,
+    issuer: "phj",
+  });
 };
 
 // 리프레시 토큰 생성
 export const createRefreshToken = (userId) => {
-  return jwt.sign(userId, tokenSecret, refreshTokenExpiry);
+  return jwt.sign({ uid: userId }, tokenSecret, {
+    expiresIn: refreshTokenExpiry,
+    issuer: "phj",
+  });
 };
 
 // 액세스 토큰 검증

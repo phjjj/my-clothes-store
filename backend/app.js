@@ -5,6 +5,7 @@ import UserRouter from "./routes/UserRouter.js";
 import ProductRouter from "./routes/ProductRouter.js";
 import OrderRouter from "./routes/OrderRouter.js";
 import CartRouter from "./routes/CartRouter.js";
+import { postRefreshToken } from "./Controllers/UserController.js";
 
 const app = express();
 const PORT = 7777;
@@ -20,9 +21,7 @@ app.use("/products", ProductRouter);
 app.use("/orders", OrderRouter);
 app.use("/cart", CartRouter);
 
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+app.use("/refresh-token", postRefreshToken);
 
 app.listen(PORT, () => {
   console.log(`🍿Server is running on port http://localhost:${PORT}`);
