@@ -1,29 +1,16 @@
 // routes/users.js
 import express from "express";
+import {
+  postCartItem,
+  getCartItems,
+  deleteCartItem,
+} from "../Controllers/CartController.js";
+import authenticateJWT from "../middleware/authMiddleware.js";
 
 const CartRouter = express.Router();
-// 장바구니 조회
-/**
- * @swagger
- * /api/cart:
- *
- *
- */
 
-// 장바구니 추가
-/**
- * @swagger
- * /api/cart:
- *
- *
- */
-
-// 장바구니 삭제
-/**
- * @swagger
- * /api/cart:
- *
- *
- */
+CartRouter.post("/", authenticateJWT, postCartItem);
+CartRouter.get("/", authenticateJWT, getCartItems);
+CartRouter.delete("/:id", authenticateJWT, deleteCartItem);
 
 export default CartRouter;
