@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const tokenSecret = process.env.JWT_SECRET;
-const accessTokenExpiry = "15m";
+const accessTokenExpiry = "15d";
 const refreshTokenExpiry = "7d";
 
 // 액세스 토큰 생성
@@ -25,7 +25,7 @@ export const createRefreshToken = (userId) => {
 // 액세스 토큰 검증
 export const verifyAccessToken = (token) => {
   try {
-    return jwt.verify(token, accessTokenSecret);
+    return jwt.verify(token, tokenSecret);
   } catch (error) {
     throw new Error("Invalid access token");
   }
@@ -34,7 +34,7 @@ export const verifyAccessToken = (token) => {
 // 리프레시 토큰 검증
 export const verifyRefreshToken = (token) => {
   try {
-    return jwt.verify(token, refreshTokenSecret);
+    return jwt.verify(token, tokenSecret);
   } catch (error) {
     throw new Error("Invalid refresh token");
   }
