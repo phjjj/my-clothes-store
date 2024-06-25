@@ -1,28 +1,17 @@
 // routes/users.js
 import express from "express";
+import {
+  getOrders,
+  deleteOrder,
+  postOrder,
+} from "../Controllers/OrderController.js";
+import authenticateJWT from "../middleware/authMiddleware.js";
 
 const OrderRouter = express.Router();
 
-// 주문 조회
-/**
- * @swagger
- * /api/order:
- *
- *
- */
-// 주문 하기
-/**
- * @swagger
- * /api/order:
- *
- *
- */
-// 주문 취소
-/**
- * @swagger
- * /api/order:
- *
- *
- */
+OrderRouter.route("/")
+  .get(authenticateJWT, getOrders)
+  .post(authenticateJWT, postOrder);
+OrderRouter.route("/:id").delete(authenticateJWT, deleteOrder);
 
 export default OrderRouter;

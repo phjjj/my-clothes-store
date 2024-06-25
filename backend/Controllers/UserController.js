@@ -57,4 +57,17 @@ const postRefreshToken = async (req, res) => {
   }
 };
 
-export { postSignUp, postLogin, postRefreshToken };
+// 유저 정보 조회
+const getUser = async (req, res) => {
+  try {
+    const userId = req.user.uid;
+    const user = await userService.getUser(userId);
+    res.status(StatusCodes.OK).json(user);
+  } catch (error) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "유저 조회 실패", error: error.message });
+  }
+};
+
+export { postSignUp, postLogin, postRefreshToken, getUser };
