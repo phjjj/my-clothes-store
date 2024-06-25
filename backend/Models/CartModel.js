@@ -54,7 +54,21 @@ const removeCartItem = async (cartItemId, userId) => {
   const query = `DELETE FROM cart_items WHERE id = ? AND user_id = ?`;
   const values = [parseInt(cartItemId), userId];
   const result = await queryDB(query, values);
+
   return result;
 };
 
-export default { addToCart, getCartItemsByUserId, removeCartItem };
+const removeCartItemByProductId = async (productId, userId) => {
+  const query = `DELETE FROM cart_items WHERE product_id = ? AND user_id = ?`;
+  const values = [productId, userId];
+  const result = await queryDB(query, values);
+
+  return result;
+};
+
+export default {
+  addToCart,
+  getCartItemsByUserId,
+  removeCartItem,
+  removeCartItemByProductId,
+};
