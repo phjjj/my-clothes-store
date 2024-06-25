@@ -18,6 +18,15 @@ const getUserByEmail = async (email) => {
   return users[0];
 };
 
+const getUserById = async (id) => {
+  const query = `
+    SELECT email, phone, address FROM users WHERE id = ?
+  `;
+  const value = [id];
+  const users = await queryDB(query, value);
+  return users[0];
+};
+
 const saveRefreshToken = async (userId, refreshToken) => {
   // 테이블에 userId가 존재하면 refresh_token을 갱신하고, 존재하지 않으면 새로운 레코드를 추가
   const query = `
@@ -43,4 +52,5 @@ export default {
   getUserByEmail,
   saveRefreshToken,
   getRefreshToken,
+  getUserById,
 };

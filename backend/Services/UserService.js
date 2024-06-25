@@ -56,4 +56,9 @@ const checkRefreshToken = async (oldRefreshToken) => {
   return { newAccessToken, newRefreshToken };
 };
 
-export default { registerUser, loginUser, checkRefreshToken };
+// 유저 정보 조회
+const getUser = async (userId) => {
+  return await UserModel.getUserById(userId);
+};
+
+export default { registerUser, loginUser, checkRefreshToken, getUser };
