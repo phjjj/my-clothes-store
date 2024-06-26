@@ -3,6 +3,7 @@ import InputText from "../components/common/inputText"
 import { useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
 import { SignupStyle } from "./Signup"
+import { useAuth } from "../hooks/useAuth"
 
 export interface LoginProps {
   email: string
@@ -10,6 +11,7 @@ export interface LoginProps {
 }
 
 function Login() {
+  const { userLogin } = useAuth()
   const {
     register,
     handleSubmit,
@@ -17,7 +19,7 @@ function Login() {
   } = useForm<LoginProps>()
 
   const onSubmit = (data: LoginProps) => {
-    console.log(data)
+    userLogin(data)
   }
 
   return (
