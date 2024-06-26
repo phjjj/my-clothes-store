@@ -19,6 +19,8 @@ export const useAuth = () => {
       .catch((err) => {
         if (err.response.status === 401) {
           showAlert("아이디 또는 비밀번호가 일치하지 않습니다.")
+        } else {
+          showAlert("로그인에 실패했습니다.")
         }
       })
   }
@@ -32,6 +34,8 @@ export const useAuth = () => {
       .catch((err) => {
         if (err.response.status === 409) {
           showAlert("이미 존재하는 이메일입니다.")
+        } else {
+          showAlert("회원가입에 실패했습니다.")
         }
       })
   }
