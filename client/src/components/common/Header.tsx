@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { FaRegUser } from "react-icons/fa";
-import { FaBagShopping } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import styled from "styled-components"
+import { FaRegUser } from "react-icons/fa"
+import { FaBagShopping } from "react-icons/fa6"
+import { Link } from "react-router-dom"
 
 function Header() {
   return (
@@ -35,7 +35,7 @@ function Header() {
         </li>
       </ul>
     </HeaderStyle>
-  );
+  )
 }
 const HeaderStyle = styled.header`
   width: 100%;
@@ -81,6 +81,6 @@ const HeaderStyle = styled.header`
       }
     }
   }
-`;
+`
 
-export default Header;
+export default Header
