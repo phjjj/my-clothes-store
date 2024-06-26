@@ -2,19 +2,30 @@ import styled from "styled-components"
 import { FaRegUser } from "react-icons/fa"
 import { FaBagShopping } from "react-icons/fa6"
 import { Link } from "react-router-dom"
+import { useAuthStore } from "../../store/authStore"
 
 function Header() {
+  const { setIsLoggedIn, isLoggedIn } = useAuthStore()
+  const handleClickLogout = () => {
+    setIsLoggedIn(false)
+  }
+
   return (
     <HeaderStyle>
       <div className="header">
         <h1 className="logo">Soo Closet 🍃</h1>
         <nav>
-          <Link to="/login">
+          <Link to={isLoggedIn ? "/mypage" : "/login"}>
             <FaRegUser />
           </Link>
           <Link to="/cart">
             <FaBagShopping />
           </Link>
+          {isLoggedIn && (
+            <button className="logout-btn" onClick={handleClickLogout}>
+              로그아웃
+            </button>
+          )}
         </nav>
       </div>
       <ul className="category">
@@ -47,7 +58,7 @@ const HeaderStyle = styled.header`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 20px 80px;
+    padding: 20px 40px;
 
     .logo {
       position: absolute;
@@ -62,6 +73,18 @@ const HeaderStyle = styled.header`
       svg {
         font-size: ${({ theme }) => theme.heading.medium.fontSize};
       }
+    }
+  }
+
+  .logout-btn {
+    border: none;
+    background-color: transparent;
+    color: ${({ theme }) => theme.colors.secondary};
+    font-size: ${({ theme }) => theme.heading.small.fontSize};
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 
