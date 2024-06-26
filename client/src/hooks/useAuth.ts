@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom"
-import { login } from "../api/auth.api"
+import { login, signUp } from "../api/auth.api"
 import { LoginProps } from "../pages/Login"
 import { useAuthStore } from "../store/authStore"
 import { useAlert } from "./useAlert"
+import { FormattedSignupProps } from "../pages/Signup"
 
 export const useAuth = () => {
   const { setIsLoggedIn } = useAuthStore()
@@ -21,5 +22,18 @@ export const useAuth = () => {
         }
       })
   }
-  return { userLogin }
+
+  const userSignUp = (data: FormattedSignupProps) => {
+    signUp(data)
+      .then(() => {
+        showAlert("회원가입이 완료되었습니다. 로그인해주세요.")
+        navigate("/login")
+      })
+      .catch((err) => {
+        if (err.response.status === 409) {
+          showAlert("이미 존재하는 이메일입니다.")
+        }
+      })
+  }
+  return { userLogin, userSignUp }
 }

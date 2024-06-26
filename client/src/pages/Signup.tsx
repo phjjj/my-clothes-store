@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import Button from "../components/common/Button"
 import FindAddress from "../components/common/FindAdress"
 import styled from "styled-components"
+import { useAuth } from "../hooks/useAuth"
 
 export interface SignupProps {
   name: string
@@ -16,7 +17,16 @@ export interface SignupProps {
   addressDetail: string
 }
 
+export interface FormattedSignupProps {
+  name: string
+  email: string
+  password: string
+  phone: string
+  address: string
+}
+
 function Signup() {
+  const { userSignUp } = useAuth()
   const {
     register,
     handleSubmit,
@@ -36,18 +46,17 @@ function Signup() {
 
     // 전화번호와 주소를 하나의 문자열로 합침
     const phone = `${data.phone1}-${data.phone2}-${data.phone3}`
-    const adress = `${data.address} ${data.addressDetail}`
+    const address = `${data.address} ${data.addressDetail}`
 
     // 서버로 전송할 데이터
-    const formattedData = {
+    const formattedData: FormattedSignupProps = {
       name: data.name,
       email: data.email,
       password: data.password,
       phone,
-      adress,
+      address,
     }
-
-    console.log(formattedData)
+    userSignUp(formattedData)
   }
 
   // 숫자만 입력 가능하도록 설정
