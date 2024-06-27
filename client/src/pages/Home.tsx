@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import { Product } from "../models/product.model"
 import ProductsList from "../components/Products/ProductsList"
+import { Link } from "react-router-dom"
+import ProductsFilter from "../components/Products/ProductsFilter"
 
 const products: Product[] = [
   {
@@ -140,6 +142,7 @@ const products: Product[] = [
 function Home() {
   return (
     <HomeStyle>
+      <ProductsFilter />
       <h1>NEW ARRIVALS</h1>
       <ProductsList products={products} />
     </HomeStyle>
