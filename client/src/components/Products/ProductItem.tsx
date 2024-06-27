@@ -18,7 +18,18 @@ function ProductItem({ product }: ProductItemProps) {
     </ProductItemStyle>
   )
 }
-const ProductItemStyle = styled.div`
+export const ProductItemStyle = styled.div`
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);

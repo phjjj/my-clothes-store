@@ -20,11 +20,7 @@ export const useProducts = () => {
     return fetchProducts({ category_id, limit, currentPage })
   }
 
-  // fetchNextPage: 다음 페이지를 가져오는 함수
-  // hasNextPage: 다음 페이지가 있는지 확인하는 boolean
-  // isFetching: 데이터를 가져오는 중인지 확인하는 boolean
-
-  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
+  const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery(
     ["products", location.search],
     // pageParam의 초기값은 1
     ({ pageParam = 1 }) => getProducts({ pageParam }),
@@ -47,7 +43,8 @@ export const useProducts = () => {
     pagination,
     fetchNextPage,
     hasNextPage,
-    isFetching,
+    isLoading,
+
     isEmpty,
   }
 }
