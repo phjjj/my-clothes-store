@@ -17,21 +17,9 @@ export const createClient = (config?: AxiosRequestConfig) => {
 
   axiosInstance.interceptors.response.use(
     (response) => {
-      // 토큰이 있을 경우
-      // 인터셉터에서도 설정이 가능하다 res가 오면 여기서 처리를 해줄 수 있다.
-      // if (response.headers.authorization) {
-      //   localStorage.setItem("token", response.headers.authorization);
-      // }
-      // console.log(response);
       return response
     },
     (error) => {
-      // 로그인 만료시 처리
-      // if (error.response.status === 401) {
-      //   removeToken();
-      //   window.location.href = "/login";
-      //   return;
-      // }
       return Promise.reject(error) // 에러를 다시 던져준다.
     }
   )
