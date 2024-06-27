@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import Header from "../common/Header";
-import Footer from "../common/Footer";
+import styled from "styled-components"
+import Header from "../common/Header"
+import Footer from "../common/Footer"
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 function Layout({ children }: LayoutProps) {
@@ -13,11 +13,11 @@ function Layout({ children }: LayoutProps) {
       <main>{children}</main>
       <Footer />
     </LayoutStyle>
-  );
+  )
 }
 const LayoutStyle = styled.div`
   width: 100%;
   margin: 0 auto;
-`;
+`
 
-export default Layout;
+export default Layout

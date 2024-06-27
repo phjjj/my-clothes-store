@@ -6,6 +6,8 @@ import { ThemeProvider } from "styled-components"
 import { defaultTheme } from "./style/theme"
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
+import { ReactQueryDevtools } from "react-query/devtools"
+import { QueryClient, QueryClientProvider } from "react-query"
 
 function App() {
   const routerList = [
@@ -32,12 +34,17 @@ function App() {
 
   const router = createBrowserRouter(newRouterList)
 
+  const queryClient = new QueryClient()
+
   return (
     <>
-      <GlobalStyle />
-      <ThemeProvider theme={defaultTheme}>
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        <ThemeProvider theme={defaultTheme}>
+          <RouterProvider router={router} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </ThemeProvider>
+      </QueryClientProvider>
     </>
   )
 }

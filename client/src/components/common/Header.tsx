@@ -28,23 +28,6 @@ function Header() {
           )}
         </nav>
       </div>
-      <ul className="category">
-        <li>
-          <Link to="/">New</Link>
-        </li>
-        <li>
-          <Link to="/">Outer</Link>
-        </li>
-        <li>
-          <Link to="/">Top</Link>
-        </li>
-        <li>
-          <Link to="/">Bottom</Link>
-        </li>
-        <li>
-          <Link to="/">Acc</Link>
-        </li>
-      </ul>
     </HeaderStyle>
   )
 }
@@ -85,23 +68,6 @@ const HeaderStyle = styled.header`
 
     &:hover {
       text-decoration: underline;
-    }
-  }
-
-  .category {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    background-color: ${({ theme }) => theme.colors.secondary};
-    padding: 10px 0 0 0;
-    li {
-      list-style: none;
-      a {
-        color: ${({ theme }) => theme.colors.primary};
-        text-decoration: none;
-        font-size: ${({ theme }) => theme.heading.small.fontSize};
-        font-weight: bold;
-      }
     }
   }
 `
