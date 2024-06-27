@@ -7,6 +7,7 @@ import OrderRouter from "./routes/OrderRouter.js"
 import CartRouter from "./routes/CartRouter.js"
 import { postRefreshToken } from "./Controllers/UserController.js"
 import cors from "cors"
+import CategoryRouter from "./routes/CategoryRouter.js"
 
 const app = express()
 const PORT = 7777
@@ -30,6 +31,7 @@ app.use("/users", UserRouter)
 app.use("/products", ProductRouter)
 app.use("/orders", OrderRouter)
 app.use("/cart", CartRouter)
+app.use("/categories", CategoryRouter)
 
 app.use("/refresh-token", postRefreshToken)
 
