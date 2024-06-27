@@ -1,4 +1,4 @@
-import productService from "../Services/ProductService.js";
+import productService from "../services/ProductService.js";
 
 const getProducts = async (req, res) => {
   const { category_id, limit, currentPage } = req.query;

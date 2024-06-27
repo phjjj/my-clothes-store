@@ -3,7 +3,7 @@ import {
   postCartItem,
   getCartItems,
   deleteCartItem,
-} from "../Controllers/CartController.js";
+} from "../controllers/CartController.js";
 import authenticateJWT from "../middleware/authMiddleware.js";
 
 const CartRouter = express.Router();

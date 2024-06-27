@@ -1,5 +1,5 @@
-import OrderModel from "../Models/OrderModel.js";
-import CartModel from "../Models/CartModel.js";
+import OrderModel from "../models/OrderModel.js";
+import CartModel from "../models/CartModel.js";
 
 const createOrder = async (order, userId) => {
   const newOrder = await OrderModel.createOrder(order, userId);

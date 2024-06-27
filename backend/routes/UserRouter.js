@@ -4,7 +4,7 @@ import {
   postSignUp,
   postLogin,
   getUser,
-} from "../Controllers/UserController.js";
+} from "../controllers/UserController.js";
 import authenticateJWT from "../middleware/authMiddleware.js";
 const UserRouter = express.Router();
 
