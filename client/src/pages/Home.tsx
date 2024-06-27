@@ -3,9 +3,30 @@ import ProductsList from "../components/Products/ProductsList"
 import ProductsFilter from "../components/Products/ProductsFilter"
 import { useProducts } from "../hooks/useProducts"
 import Button from "../components/common/Button"
+import Loading from "../components/Products/Loading"
 
 function Home() {
-  const { products, fetchNextPage, hasNextPage } = useProducts()
+  const { products, fetchNextPage, hasNextPage, isEmpty, isLoading } = useProducts()
+
+  if (isLoading) {
+    return (
+      <HomeStyle>
+        <ProductsFilter />
+        <Loading />
+      </HomeStyle>
+    )
+  }
+
+  if (isEmpty) {
+    return (
+      <HomeStyle>
+        <ProductsFilter />
+        <div className="empty">
+          <h1>No Products</h1>
+        </div>
+      </HomeStyle>
+    )
+  }
 
   return (
     <HomeStyle>
@@ -25,6 +46,7 @@ function Home() {
     </HomeStyle>
   )
 }
+
 const HomeStyle = styled.div`
   h1 {
     color: ${(props) => props.theme.colors.primary};
@@ -34,6 +56,13 @@ const HomeStyle = styled.div`
   }
   max-width: 1200px;
   margin: 0 auto;
+
+  .empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+  }
   .more {
     display: flex;
     justify-content: center;
@@ -44,7 +73,8 @@ const HomeStyle = styled.div`
         transform: scale(1.05);
       }
       &:disabled {
-        cursor: not-allowed;
+        pointer-events: none;
+        background-color: #bdc3c7;
       }
     }
   }
