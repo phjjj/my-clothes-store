@@ -1,150 +1,27 @@
 import styled from "styled-components"
-import { Product } from "../models/product.model"
 import ProductsList from "../components/Products/ProductsList"
-import { Link } from "react-router-dom"
 import ProductsFilter from "../components/Products/ProductsFilter"
-
-const products: Product[] = [
-  {
-    id: 11,
-    title: "Nike",
-    category_id: 1,
-    summary: "나이키 바람막이 제품입니다.",
-    description: "나이키",
-    price: 20000,
-    images: [
-      "https://contents.sixshop.com/thumbnails/uploadedFiles/194067/product/image_1719120187185_1000.jpg",
-    ],
-  },
-  {
-    id: 12,
-    title: "Adidas",
-    category_id: 1,
-    summary: "Adidas",
-    description: "Adidas",
-    price: 20000,
-    images: [
-      "https://contents.sixshop.com/thumbnails/uploadedFiles/194067/product/image_1719121131696_1000.jpg",
-    ],
-  },
-  {
-    id: 15,
-    title: "Pants",
-    category_id: 1,
-    summary: "Pants",
-    description: "Pants",
-    price: 20000,
-    images: [
-      "https://contents.sixshop.com/thumbnails/uploadedFiles/194067/product/image_1719120868401_1000.jpg",
-    ],
-  },
-  {
-    id: 17,
-    title: "\b",
-    category_id: 2,
-    summary: "하",
-    description: "호",
-    price: 123123,
-    images: [
-      "https://contents.sixshop.com/thumbnails/uploadedFiles/194067/product/image_1719120868401_1000.jpg",
-    ],
-  },
-  {
-    id: 11,
-    title: "Nike",
-    category_id: 1,
-    summary: "나이키 바람막이 제품입니다.",
-    description: "나이키",
-    price: 20000,
-    images: [
-      "https://contents.sixshop.com/thumbnails/uploadedFiles/194067/product/image_1719120187185_1000.jpg",
-    ],
-  },
-  {
-    id: 12,
-    title: "Adidas",
-    category_id: 1,
-    summary: "Adidas",
-    description: "Adidas",
-    price: 20000,
-    images: [
-      "https://contents.sixshop.com/thumbnails/uploadedFiles/194067/product/image_1719121131696_1000.jpg",
-    ],
-  },
-  {
-    id: 15,
-    title: "Pants",
-    category_id: 1,
-    summary: "Pants",
-    description: "Pants",
-    price: 20000,
-    images: [
-      "https://contents.sixshop.com/thumbnails/uploadedFiles/194067/product/image_1719120868401_1000.jpg",
-    ],
-  },
-  {
-    id: 17,
-    title: "\b",
-    category_id: 2,
-    summary: "하",
-    description: "호",
-    price: 123123,
-    images: [
-      "https://contents.sixshop.com/thumbnails/uploadedFiles/194067/product/image_1719120868401_1000.jpg",
-    ],
-  },
-  {
-    id: 11,
-    title: "Nike",
-    category_id: 1,
-    summary: "나이키 바람막이 제품입니다.",
-    description: "나이키",
-    price: 20000,
-    images: [
-      "https://contents.sixshop.com/thumbnails/uploadedFiles/194067/product/image_1719120187185_1000.jpg",
-    ],
-  },
-  {
-    id: 12,
-    title: "Adidas",
-    category_id: 1,
-    summary: "Adidas",
-    description: "Adidas",
-    price: 20000,
-    images: [
-      "https://contents.sixshop.com/thumbnails/uploadedFiles/194067/product/image_1719121131696_1000.jpg",
-    ],
-  },
-  {
-    id: 15,
-    title: "Pants",
-    category_id: 1,
-    summary: "Pants",
-    description: "Pants",
-    price: 20000,
-    images: [
-      "https://contents.sixshop.com/thumbnails/uploadedFiles/194067/product/image_1719120868401_1000.jpg",
-    ],
-  },
-  {
-    id: 17,
-    title: "\b",
-    category_id: 2,
-    summary: "하",
-    description: "호",
-    price: 123123,
-    images: [
-      "https://contents.sixshop.com/thumbnails/uploadedFiles/194067/product/image_1719120868401_1000.jpg",
-    ],
-  },
-]
+import { useProducts } from "../hooks/useProducts"
+import Button from "../components/common/Button"
 
 function Home() {
+  const { products, fetchNextPage, hasNextPage } = useProducts()
+
   return (
     <HomeStyle>
       <ProductsFilter />
       <h1>NEW ARRIVALS</h1>
       <ProductsList products={products} />
+      <div className="more">
+        <Button
+          size="large"
+          schema="secondary"
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage}
+        >
+          {hasNextPage ? "More" : "No More Products"}
+        </Button>
+      </div>
     </HomeStyle>
   )
 }
@@ -157,6 +34,20 @@ const HomeStyle = styled.div`
   }
   max-width: 1200px;
   margin: 0 auto;
+  .more {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    button {
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+      }
+      &:disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
 `
 
 export default Home
