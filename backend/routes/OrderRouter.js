@@ -4,7 +4,7 @@ import {
   getOrders,
   deleteOrder,
   postOrder,
-} from "../Controllers/OrderController.js";
+} from "../controllers/OrderController.js";
 import authenticateJWT from "../middleware/authMiddleware.js";
 
 const OrderRouter = express.Router();

@@ -6,7 +6,7 @@ import {
   postProduct,
   putProduct,
   deleteProduct,
-} from "../Controllers/ProductController.js";
+} from "../controllers/ProductController.js";
 import uploadImages from "../middleware/upload.js";
 
 const ProductRouter = express.Router();

@@ -1,7 +1,7 @@
 import ProductModel from "../Models/ProductModel.js";
-import { uploadToS3, deleteObjectsByPrefix } from "../Utils/s3.js";
+import { uploadToS3, deleteObjectsByPrefix } from "../utils/s3.js";
 import { v4 as uuidv4 } from "uuid";
-
+import { resizeImage } from "../utils/sharp.js";
 // 전체 상품 조회
 const getAllProducts = async (category_id, limit, currentPage) => {
   const offset = limit * (currentPage - 1);

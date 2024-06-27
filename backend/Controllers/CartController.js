@@ -1,4 +1,4 @@
-import CartService from "../Services/CartService.js";
+import CartService from "../services/CartService.js";
 
 // 장바구니에 상품 추가
 const postCartItem = async (req, res) => {
