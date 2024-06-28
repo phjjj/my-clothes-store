@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { Product } from "../../models/product.model"
 import { formatNumber } from "../../utils/format"
+import { Link } from "react-router-dom"
 
 interface ProductItemProps {
   product: Product
@@ -8,13 +9,15 @@ interface ProductItemProps {
 function ProductItem({ product }: ProductItemProps) {
   return (
     <ProductItemStyle>
-      <div className="img">
-        <img src={product.images[0]} alt={product.title} />
-      </div>
-      <div className="contents">
-        <h2 className="title">{product.title}</h2>
-        <span className="price">{formatNumber(product.price)}원</span>
-      </div>
+      <Link to={`/products/${product.id}`}>
+        <div className="img">
+          <img src={product.images[0]} alt={product.title} />
+        </div>
+        <div className="contents">
+          <h2 className="title">{product.title}</h2>
+          <span className="price">{formatNumber(product.price)}원</span>
+        </div>
+      </Link>
     </ProductItemStyle>
   )
 }
