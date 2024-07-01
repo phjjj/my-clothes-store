@@ -25,6 +25,10 @@ function App() {
       element: <Signup />,
     },
     {
+      path: "/products/:category_id/:id",
+      element: <ProductDetail />,
+    },
+    {
       path: "/products/:id",
       element: <ProductDetail />,
     },
