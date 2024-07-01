@@ -1,34 +1,33 @@
-import { useQueryClient } from "react-query"
+import { InfiniteData, useQuery, useQueryClient } from "react-query"
 import { FetchProductResponse, fetchProduct } from "../api/products.api"
-import { Product } from "../models/product.model"
-import { useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
 
 interface CacheData {
-  pageParam: []
-  pages: FetchProductResponse[]
+  pages: InfiniteData<FetchProductResponse>["pages"]
 }
 
 export const useProduct = (id: string | undefined) => {
-  const [product, setProduct] = useState<Product | null>(null)
+  const location = useLocation()
   const queryClient = useQueryClient()
 
-  useEffect(() => {
-    // 캐시된 데이터 가져오기
-    const cacheProduct = queryClient.getQueryData<CacheData>(["products", ""])
-    if (cacheProduct) {
-      // 캐시 데이터가 있을 경우, 평탄화 후 제품 찾기
-      const formattedData = cacheProduct.pages.flatMap((page) => page.products)
-      const foundProduct = formattedData.find((product) => product.id === Number(id))
-      if (foundProduct) setProduct(foundProduct)
-    } else {
-      // 캐시 데이터가 없을 경우, 제품 fetch
-      queryClient
-        .fetchQuery(["product", id], () => fetchProduct(Number(id)))
-        .then((data) => {
-          if (data) setProduct(data)
-        })
-    }
-  }, [id, queryClient])
+  const { data: product } = useQuery(["product", id], () => fetchProduct(Number(id)), {
+    initialData: () => {
+      const queryData = queryClient.getQueryData<CacheData>([
+        "products",
+        location.pathname.split("/")[2] === "all" ? "all" : location.pathname.split("/")[2], // 카테고리별로 분기처리
+      ])
+      const product = queryData?.pages
+        .flatMap((page) => page.products)
+        .find((product) => product.id === Number(id))
+      return product
+    },
+    staleTime: 1000 * 60 * 5,
+  })
+
+  const handleAddToCart = () => {
+    // react-query의 mutate를 사용하여 장바구니에 제품 추가
+    // mutate는 데이터를 업데이트할 때 사용한다.
+  }
 
   return { product }
 }
