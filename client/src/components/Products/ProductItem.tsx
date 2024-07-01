@@ -1,15 +1,20 @@
 import styled from "styled-components"
 import { Product } from "../../models/product.model"
 import { formatNumber } from "../../utils/format"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 interface ProductItemProps {
   product: Product
 }
 function ProductItem({ product }: ProductItemProps) {
+  const location = useLocation()
   return (
     <ProductItemStyle>
-      <Link to={`/products/${product.id}`}>
+      <Link
+        to={`/products/${location.search.split("?")[1] ? location.search.split("?")[1] : "all"}/${
+          product.id
+        }`}
+      >
         <div className="img">
           <img src={product.images[0]} alt={product.title} />
         </div>
