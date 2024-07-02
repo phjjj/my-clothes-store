@@ -1,12 +1,15 @@
-import { InfiniteData, useQuery, useQueryClient } from "react-query"
+import { InfiniteData, useMutation, useQuery, useQueryClient } from "react-query"
 import { FetchProductResponse, fetchProduct } from "../api/products.api"
 import { useLocation } from "react-router-dom"
+import { addCart } from "../api/cart.api"
+import { useAlert } from "./useAlert"
 
 interface CacheData {
   pages: InfiniteData<FetchProductResponse>["pages"]
 }
 
 export const useProduct = (id: string | undefined) => {
+  const { showAlert } = useAlert()
   const location = useLocation()
   const queryClient = useQueryClient()
 
@@ -24,10 +27,15 @@ export const useProduct = (id: string | undefined) => {
     staleTime: 1000 * 60 * 5,
   })
 
-  const handleAddToCart = () => {
-    // react-query의 mutate를 사용하여 장바구니에 제품 추가
-    // mutate는 데이터를 업데이트할 때 사용한다.
-  }
+  // 장바구니에 상품 추가 mutation 만들기
+  const { mutate: addCartMutate } = useMutation(addCart, {
+    onSuccess: () => {
+      showAlert("장바구니에 상품이 추가되었습니다.")
+    },
+    onError: () => {
+      showAlert("장바구니에 상품을 추가하는데 실패했습니다.")
+    },
+  })
 
-  return { product }
+  return { product, addCartMutate }
 }

@@ -3,15 +3,19 @@ import Button from "../common/Button"
 import InputText from "../common/inputText"
 import { useState } from "react"
 
-function AddToCart() {
-  const [quantity, setQuantity] = useState(0)
+interface AddToCartProps {
+  handleClickAddCart: (qunatity: number) => void
+}
+
+function AddToCart({ handleClickAddCart }: AddToCartProps) {
+  const [quantity, setQuantity] = useState(1)
 
   const handleClickIncrease = () => {
     setQuantity(quantity + 1)
   }
 
   const handleClickDecrease = () => {
-    if (quantity > 0) {
+    if (quantity > 1) {
       setQuantity(quantity - 1)
     }
   }
@@ -28,7 +32,7 @@ function AddToCart() {
         </Button>
       </div>
 
-      <Button schema="primary" size="large">
+      <Button onClick={() => handleClickAddCart(quantity)} schema="primary" size="large">
         <span>장바구니 담기</span>
       </Button>
     </AddToCartStyle>

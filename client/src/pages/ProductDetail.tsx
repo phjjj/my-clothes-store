@@ -8,11 +8,15 @@ import { useProduct } from "../hooks/useProduct"
 
 function ProductDetail() {
   const { id } = useParams()
-  const { product } = useProduct(id)
+  const { product, addCartMutate } = useProduct(id)
   const [imgIndex, setImgIndex] = useState(0)
 
   if (!product) {
     return <div>상품이 존재하지 않습니다.</div>
+  }
+
+  const handleClickAddCart = (quantity: number) => {
+    addCartMutate({ product_id: product.id, quantity })
   }
 
   return (
@@ -38,7 +42,7 @@ function ProductDetail() {
         <p>{product.description}</p>
         <div className="button-container">
           <div>
-            <AddToCart />
+            <AddToCart handleClickAddCart={handleClickAddCart} />
           </div>
           <Button schema="primary" size="large">
             구매하기
