@@ -4,7 +4,7 @@ import { fetchCategories } from "../api/categories.api"
 
 export const useCategory = () => {
   const { data, isSuccess } = useQuery(["categories"], fetchCategories, {
-    cacheTime: Infinity, // 캐시 시간을 무한대로 설정
+    staleTime: Infinity,
   })
 
   const categories: Category[] = isSuccess ? [{ id: null, name: "New" }, ...data] : []
