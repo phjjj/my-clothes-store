@@ -12,7 +12,8 @@ export const useAuth = () => {
 
   const userLogin = (data: LoginProps) => {
     login(data)
-      .then(() => {
+      .then((res) => {
+        localStorage.setItem("token", res.headers.authorization.split(" ")[1])
         setIsLoggedIn(true)
         navigate("/")
       })
